@@ -1,33 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import '../components/Form.scss';
 import { connect } from 'react-redux';
 
 const Component = () => {
 
   return (
-    <div className="App">
-      <section className='formBox'>
-        <form>
-          <h1>Choose your favourite dish</h1>
-          <div className="top-row">
-            <div className="field-wrap">
-              <input name="firstName" placeholder="First name *" required type="text"></input>
-            </div>
-            <div className="field-wrap">
-              <input name="lastName" placeholder="Last name *" required type="text"></input>
-            </div>
+    <section className='formBox'>
+      <form>
+        <h1>Choose your favourite dish</h1>
+        <div className="top-row">
+          <div className="field-wrap">
+            <input name="name" placeholder="Dish name *" required type="text"></input>
           </div>
           <div className="field-wrap">
-            <input name="email" placeholder="Email address *" required type="email"></input>
+            <input name="preparation_time" placeholder="Preparation time *" required type="text"></input>
           </div>
-          <div className="field-wrap">
-            <input placeholder="Password *" required type="password"></input>
-          </div>
-          <button className="button button-block" type="submit">Get Started</button>
-        </form>
-      </section>
-    </div>
+        </div>
+        <div className="field-wrap">
+          <input id="appt-time" type="time" name="appt-time" step="2" value="12:50:10"/>
+        </div>
+        <div className="field-wrap">
+          <input placeholder="Password *" required type="password"></input>
+        </div>
+        <button className="button button-block" type="submit">Get Started</button>
+      </form>
+    </section>
   );
 };
 

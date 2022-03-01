@@ -1,15 +1,25 @@
-.App {
-  text-align: center;
-  background-image: url("https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?cs=srgb&dl=pexels-ray-piedra-1565982.jpg&fm=jpg");
-  min-height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-
 .formBox {
+  max-width: 700px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 20px;
+  margin: 5% auto 5% auto;
+  height: 500px;
   h1 {
     color: white;
+  }
+  form {
+    background: rgba(19, 35, 47, 0.9);
+    // margin: 40px auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+  }
+  form > * {
+    padding: 5px;
+    text-align: center;
   }
 }
