@@ -10,21 +10,30 @@ const Component = () => {
     <section className='formBox'>
       <form>
         <h1>Choose your favourite dish</h1>
-        <div className="top-row">
-          <div className="field-wrap">
-            <input name="name" placeholder="Dish name *" required type="text"></input>
-          </div>
-          <div className="field-wrap">
-            <input name="preparation_time" placeholder="Preparation time *" required type="text"></input>
-          </div>
-        </div>
         <div className="field-wrap">
-          <input id="appt-time" type="time" name="appt-time" step="2" value="12:50:10"/>
+          <input name="name" placeholder="Dish name *" required type="text"></input>
+        </div>
+        <fieldset>
+          <div>
+            <input type="radio" name="type" value="pizza" />
+            <span>Pizza</span>
+          </div>
+          <div>
+            <input type="radio" name="type" value="soup" />
+            <span>Soup</span>
+          </div>
+          <div>
+            <input type="radio" name="type" value="sandwich" />
+            <span>Sandwich</span>
+          </div>
+        </fieldset>
+        <div className="field-wrap">
+          <input name="preparation_time" placeholder="Preparation time *" id="appt-time" type="time" step="2" value="12:50:10" />
         </div>
         <div className="field-wrap">
           <input placeholder="Password *" required type="password"></input>
         </div>
-        <button className="button button-block" type="submit">Get Started</button>
+        <button className="button button-block" type="submit">Send</button>
       </form>
     </section>
   );

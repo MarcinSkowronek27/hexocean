@@ -7,9 +7,12 @@
   margin: 5% auto 5% auto;
   height: 500px;
   h1 {
+    font-size: 2rem;
     color: white;
   }
   form {
+    display: flex;
+    align-items: center;
     background: rgba(19, 35, 47, 0.9);
     // margin: 40px auto;
     border-radius: 4px;
@@ -21,5 +24,69 @@
   form > * {
     padding: 5px;
     text-align: center;
+  }
+
+  input,
+  textarea {
+    font-size: 22px;
+    display: block;
+    width: 200px;
+    height: 100%;
+    padding: 5px 10px;
+    background: none;
+    border: 1px solid #a0b3b0;
+    color: #ffffff;
+    border-radius: 0;
+    -webkit-transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  fieldset {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    // background-color: #a0b3b0;
+    text-align: center;
+    align-items: center;
+    div {
+      width: 185px;
+      margin-top: 10px;
+      // border: solid red;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      input {
+        max-width: 60px;
+      }
+      span {
+        font-size: 16px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .button {
+    border: 0;
+    outline: none;
+    border-radius: 5px;
+    padding: 12px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #1ab188;
+    color: #ffffff;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+  }
+  .button:hover,
+  .button:focus {
+    background: #18634f;
+  }
+  .button-block {
+    margin-top: 20px;
+    width: 45%;
   }
 }
