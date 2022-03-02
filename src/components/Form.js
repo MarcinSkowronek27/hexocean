@@ -1,43 +1,83 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import '../components/Form.scss';
+// import { useState } from 'react';
 // import { connect } from 'react-redux';
 // import {reduxSelector, reduxActionCreator} from '../redux';
 
-const Component = () => {
+class Component extends React.Component {
 
-  return (
-    <section className='formBox'>
-      <form>
-        <h1>Choose your favourite dish</h1>
-        <div className="field-wrap">
-          <input name="name" placeholder="Dish name *" required type="text"></input>
-        </div>
-        <fieldset>
-          <div>
-            <input type="radio" name="type" value="pizza" />
-            <span>Pizza</span>
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: 1,
+      dishName: '',
+      dishType: '',
+      noOfSlices: 1,
+      diameter: '',
+      spicinesScale: 1,
+      slicesOfBread: 1,
+    };
+  }
+
+  handleChangeDishName = (e) => {
+    e.preventDefault();
+    this.setState({ dishName: e.target.value });
+  };
+
+  handleChangenoOfSlices = (e) => {
+    e.preventDefault();
+    this.setState({ noOfSlices: e.target.value });
+  };
+
+  handleChangeDiameter = (e) => {
+    e.preventDefault();
+    this.setState({ diameter: e.target.value });
+  };
+
+
+  render() {
+    console.log(this.state);
+    return (
+      <section className='formBox'>
+        <form>
+          <h1>Choose your favourite dish</h1>
+          <div className="field-wrap">
+            <input name="dish_name" value={this.state.dishName} placeholder="Dish name *" required type="text" onChange={e => this.handleChangeDishName(e)}></input>
           </div>
-          <div>
-            <input type="radio" name="type" value="soup" />
-            <span>Soup</span>
+          <fieldset onChange={e => this.setState({ dishType: e.target.value })}>
+            <div>
+              <input className="typeRadio" type="radio" name="dish_type" value="pizza" />
+              <span>Pizza</span>
+            </div>
+            <div>
+              <input className="typeRadio" type="radio" name="dish_type" value="soup" />
+              <span>Soup</span>
+            </div>
+            <div>
+              <input className="typeRadio" type="radio" name="dish_type" value="sandwich" />
+              <span>Sandwich</span>
+            </div>
+          </fieldset>
+          <div className="field-wrap">
+            <input name="preparation_time" placeholder="Preparation time *" id="appt-time" type="time" step="2" value="12:50:10" />
           </div>
-          <div>
-            <input type="radio" name="type" value="sandwich" />
-            <span>Sandwich</span>
-          </div>
-        </fieldset>
-        <div className="field-wrap">
-          <input name="preparation_time" placeholder="Preparation time *" id="appt-time" type="time" step="2" value="12:50:10" />
-        </div>
-        <div className="field-wrap">
-          <input placeholder="Password *" required type="password"></input>
-        </div>
-        <button className="button button-block" type="submit">Send</button>
-      </form>
-    </section>
-  );
-};
+          {this.state.dishType === 'pizza' ?
+            <fieldset>
+              <div className="field-wrap">
+                <input name="no_of_slices" id="no_of_slices" placeholder="No of slices *" type="number" min="1" max="12" value={this.state.numberOfSlices} onChange={e => this.handleChangenoOfSlices(e)} />
+              </div>
+              <div className="field-wrap">
+                <input name="diameter" placeholder="Diameter *" type="number" min="16" max="46" step="1.5" value={this.state.diameter} onChange={e => this.handleChangeDiameter(e)} />
+              </div>
+            </fieldset> : ''
+          }
+          <button className="button button-block" type="submit">Send</button>
+        </form>
+      </section>
+    );
+  }
+}
 
 // const mapStateToProps = state => ({
 //   someProp: reduxSelector(state),
