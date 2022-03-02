@@ -1,7 +1,8 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import '../components/Form.scss';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+// import {reduxSelector, reduxActionCreator} from '../redux';
 
 const Component = () => {
 
@@ -29,9 +30,17 @@ const Component = () => {
   );
 };
 
-const FormContainer = connect(Component);
+// const mapStateToProps = state => ({
+//   someProp: reduxSelector(state),
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   someAction: arg => dispatch(reduxActionCreator(arg)),
+// });
+
+// const FormContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  FormContainer as Form,
+  // FormContainer as Form,
   Component as FormComponent,
 };
