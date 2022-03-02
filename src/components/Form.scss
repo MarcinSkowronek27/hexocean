@@ -55,13 +55,25 @@
       flex-direction: row;
       align-items: center;
       align-content: center;
-      .typeRadio{
+      .typeRadio {
         max-width: 60px;
       }
       span {
         font-size: 16px;
         color: #ffffff;
       }
+    }
+  }
+
+  form .rangeDiv {
+    font-size: 16px;
+    color: white;
+    height: 100px;
+    input {
+      height: 30px;
+    }
+    output {
+      font-size: 19px;
     }
   }
 

@@ -15,7 +15,8 @@ class Component extends React.Component {
       dishType: '',
       noOfSlices: 1,
       diameter: '',
-      spicinesScale: 1,
+      prepareTime: '00:00:00',
+      spicinesScale: 0,
       slicesOfBread: 1,
     };
   }
@@ -25,14 +26,29 @@ class Component extends React.Component {
     this.setState({ dishName: e.target.value });
   };
 
-  handleChangenoOfSlices = (e) => {
+  handleChangeNoOfSlices = (e) => {
     e.preventDefault();
-    this.setState({ noOfSlices: e.target.value });
+    this.setState({ noOfSlices: parseInt(e.target.value)});
   };
 
   handleChangeDiameter = (e) => {
     e.preventDefault();
     this.setState({ diameter: e.target.value });
+  };
+
+  handleChangePrepareTime = (e) => {
+    e.preventDefault();
+    this.setState({ prepareTime: e.target.value });
+  };
+
+  handleChangeSpicinesScale = (e) => {
+    e.preventDefault();
+    this.setState({ spicinesScale: parseInt(e.target.value) });
+  };
+
+  handleChangeSlicesOfBread = (e) => {
+    e.preventDefault();
+    this.setState({ slicesOfBread: parseInt(e.target.value) });
   };
 
 
@@ -60,17 +76,31 @@ class Component extends React.Component {
             </div>
           </fieldset>
           <div className="field-wrap">
-            <input name="preparation_time" placeholder="Preparation time *" id="appt-time" type="time" step="2" value="12:50:10" />
+            <input name="preparation_time" placeholder="Preparation time *" id="appt-time" required type="time" step="2" value={this.state.prepareTime} onChange={e => this.handleChangePrepareTime(e)} />
           </div>
           {this.state.dishType === 'pizza' ?
             <fieldset>
               <div className="field-wrap">
-                <input name="no_of_slices" id="no_of_slices" placeholder="No of slices *" type="number" min="1" max="12" value={this.state.numberOfSlices} onChange={e => this.handleChangenoOfSlices(e)} />
+                <input name="no_of_slices" id="no_of_slices" placeholder="No of slices *"  required type="number" min="1" max="12" value={this.state.numberOfSlices} onChange={e => this.handleChangeNoOfSlices(e)} />
               </div>
               <div className="field-wrap">
-                <input name="diameter" placeholder="Diameter *" type="number" min="16" max="46" step="1.5" value={this.state.diameter} onChange={e => this.handleChangeDiameter(e)} />
+                <input name="diameter" placeholder="Diameter *"  required type="number" min="16" max="46" step="1.5" value={this.state.diameter} onChange={e => this.handleChangeDiameter(e)} />
               </div>
             </fieldset> : ''
+          }
+          {this.state.dishType === 'soup' ?
+            <div className="field-wrap rangeDiv">
+              <label htmlFor="spicines_scale">Choose level of spicy</label>
+              <input name="spicines_scale" id="spiciles_scale" placeholder="Spiciles scale *"  required type="range" min="0" max="10" value={this.state.spicinesScale} onChange={e => this.handleChangeSpicinesScale(e)} />
+              <output>{this.state.spicinesScale}</output>
+            </div>
+            : ''
+          }
+          {this.state.dishType === 'sandwich' ?
+            <div className="field-wrap">
+              <input name="slices_of_bread" placeholder="Slices of bread *"  required type="number" min="1" max="10" value={this.state.slicesOfBread} onChange={e => this.handleChangeSlicesOfBread(e)} />
+            </div>
+            : ''
           }
           <button className="button button-block" type="submit">Send</button>
         </form>
