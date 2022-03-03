@@ -91,7 +91,7 @@ class Component extends React.Component {
           {this.state.dishType === 'soup' ?
             <div className="field-wrap rangeDiv">
               <label htmlFor="spicines_scale">Choose level of spicy</label>
-              <input name="spicines_scale" id="spiciles_scale" placeholder="Spiciles scale *"  required type="range" min="0" max="10" value={this.state.spicinesScale} onChange={e => this.handleChangeSpicinesScale(e)} />
+              <input name="spicines_scale" id="spicines_scale" placeholder="Spicines scale *"  required type="range" min="0" max="10" value={this.state.spicinesScale} onChange={e => this.handleChangeSpicinesScale(e)} />
               <output>{this.state.spicinesScale}</output>
             </div>
             : ''
