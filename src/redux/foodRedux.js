@@ -3,37 +3,41 @@ import { API_URL } from '../config';
 
 
 /* selectors */
-// export const getAllOrder = ({ order }) => order.data;
-export const getPersonalData = ({ order }) => order.personalData;
+export const getFoodData = ({ food }) => food;
 
 /* action name creator */
-const reducerName = 'order';
+const reducerName = 'food';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
-const ADD_ORDER = createActionName('ADD_ORDER');
-const UPDATE_ORDER_FORM = createActionName('UPDATE_ORDER_FORM');
-const CLEAN_ORDER_FORM = createActionName('CLEAN_ORDER_FORM');
+const ADD_FOOD = createActionName('ADD_FOOD');
+const UPDATE_ORDER_FOOD = createActionName('UPDATE_ORDER_FOOD');
+const CLEAN_ORDER_FOOD = createActionName('CLEAN_ORDER_FOOD');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
-export const addOrder = payload => ({ payload, type: ADD_ORDER });
-export const updateOrderForm = payload => ({ payload, type: UPDATE_ORDER_FORM });
-export const cleanOrderForm = payload => ({ payload, type: CLEAN_ORDER_FORM });
+export const addFood = payload => ({ payload, type: ADD_FOOD });
+export const updateOrderFood = payload => ({ payload, type: UPDATE_ORDER_FOOD });
+export const cleanOrderFood = payload => ({ payload, type: CLEAN_ORDER_FOOD });
 
 /* thunk creators */
 
-export const addOrderInAPI = newOrder => {
+export const addFoodInAPI = (food) => {
+
+  const newFood = {...food};
+
   return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
     Axios
-      .post(`${API_URL}/orders`, newOrder)
+      .post('http://localhost:8000/api/foods', newFood)
       .then(res => {
-        dispatch(addOrder(res.data));
+        dispatch(addFood(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
@@ -72,33 +76,25 @@ export const reducer = (statePart = [], action = {}) => {
         },
       };
     }
-    case ADD_ORDER: {
+    case ADD_FOOD: {
       return {
         ...statePart,
         data: [...statePart.data, action.payload],
       };
     }
-    case UPDATE_ORDER_FORM: {
-      // console.log(action.payload.email);
-      // console.log(action.payload);
+    case UPDATE_ORDER_FOOD: {
       return {
         ...statePart,
-        personalData: {
-          email: action.payload.email,
-          phone: action.payload.phone,
-          name: action.payload.name,
-          surname: action.payload.surname,
-          payment: action.payload.payment,
-          address: action.payload.address,
-          city: action.payload.city,
+        data: {
+          dishName: action.payload.dishName,
+          dishType: action.payload.dishType,
         },
       };
     }
-    case CLEAN_ORDER_FORM: {
+    case CLEAN_ORDER_FOOD: {
       return {
         ...statePart,
-        data: [],
-        personalData: {},
+        food: {},
       };
     }
     default:
