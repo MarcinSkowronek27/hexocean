@@ -75,10 +75,11 @@ class Component extends React.Component {
 
     if (food.dishName && food.dishType) {
       await addFood(food);
-      alert('Post added successfully!');
+      alert('Your food sent successfully!');
 
       this.setState({
         food: {
+          id: 1,
           dishName: '',
           dishType: '',
           noOfSlices: 1,
@@ -102,7 +103,7 @@ class Component extends React.Component {
 
     return (
       <section className='formBox'>
-        <form noValidate autoComplete="off" action="/foods" method="POST" encType="multipart/form-data" onSubmit={submitForm}>
+        <form noValidate autoComplete="off" onSubmit={submitForm}>
           <h1>Make your favourite dish</h1>
           <div className="field-wrap">
             <input name="dishName" id="dishName" value={food.dishName} placeholder="Dish name *" required type="text" onChange={updateTextField}></input>

@@ -35,7 +35,7 @@ export const addFoodInAPI = (food) => {
     dispatch(fetchStarted());
 
     Axios
-      .post('http://localhost:8000/api/foods', newFood)
+      .post(`${API_URL}/foods`, newFood)
       .then(res => {
         dispatch(addFood(res.data));
       })
