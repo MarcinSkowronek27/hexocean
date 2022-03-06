@@ -14,26 +14,25 @@ router.get('/foods', async (req, res) => {
   }
 });
 
-router.post('/foods', async (req, res) => {
-  console.log(req.body);
+router.post('https://frosty-wood-6558.getsandbox.com:443/dishes', async (req, res) => {
   try {
-    const { id, dishName,
-      dishType,
-      preparationTime,
+    const { id, name,
+      type,
+      preparation_time,
       diameter,
-      noOfSlices,
-      spicinesScale,
-      slicesOfBread,
+      no_of_slices,
+      spiciness_scale,
+      slices_of_bread,
     } = req.body;
     const newFood = new Food({
       id,
-      dishName,
-      dishType,
-      preparationTime,
+      name,
+      type,
+      preparation_time,
       diameter,
-      noOfSlices,
-      spicinesScale,
-      slicesOfBread,
+      no_of_slices,
+      spiciness_scale,
+      slices_of_bread,
     });
     await newFood.save();
     if (!newFood) res.status(404).json({ foods: 'Not found' });

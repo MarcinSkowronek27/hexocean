@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import { API_URL } from '../config';
 
 /* selectors */
 export const getFoodData = ({ foods }) => foods.data;
@@ -28,10 +27,9 @@ export const addFoodInAPI = newFood => {
     dispatch(fetchStarted());
 
     Axios
-      .post(`${API_URL}/foods`, newFood)
+      .post('https://frosty-wood-6558.getsandbox.com:443/dishes', newFood)
       .then(res => {
         dispatch(addFood(res.data));
-        console.log('działa metoda post');
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
