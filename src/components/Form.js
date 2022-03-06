@@ -36,8 +36,8 @@ class Component extends React.Component {
   updateNumberField = (e) => {
     const { food, orderFood } = this.state;
     this.setState({
-      food: { ...food, [e.target.name]: parseInt(e.target.value) },
-      orderFood: { ...orderFood, [e.target.name]: parseInt(e.target.value) },
+      food: { ...food, [e.target.name]: e.target.value * 1 },
+      orderFood: { ...orderFood, [e.target.name]: e.target.value * 1 },
     });
   };
 
@@ -129,7 +129,7 @@ class Component extends React.Component {
                 <input name="no_of_slices" id="no_of_slices" placeholder="No of slices *" required type="number" min="0" max="12" value={food.nomberOfSlices} onChange={updateNumberField} />
               </div>
               <div className="field-wrap">
-                <input name="diameter" id="diameter" placeholder="Diameter *" required type="number" min="16" max="46" value={food.diameter} onChange={updateNumberField} />
+                <input name="diameter" id="diameter" placeholder="Diameter *" required type="number" min="16" max="46" step="1.5" value={food.diameter} onChange={updateNumberField} />
               </div>
             </fieldset> : ''
           }
