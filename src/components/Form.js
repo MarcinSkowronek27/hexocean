@@ -14,28 +14,37 @@ class Component extends React.Component {
         id: 1,
         dishName: '',
         dishType: '',
-        // noOfSlices: 0,
+        noOfSlices: 0,
         preparationTime: '00:00:00',
         diameter: '',
-        // spicinesScale: 0,
-        // slicesOfBread: 0,
+        spicinesScale: 0,
+        slicesOfBread: 0,
+      },
+      orderFood: {
+
       },
     };
   }
 
   updateTextField = (e) => {
-    const { food } = this.state;
-    this.setState({ food: { ...food, [e.target.name]: e.target.value } });
+    const { food, orderFood } = this.state;
+    this.setState({
+      food: { ...food, [e.target.name]: e.target.value },
+      orderFood: { ...orderFood, [e.target.name]: e.target.value },
+    });
   };
 
   updateNumberField = (e) => {
-    const { food } = this.state;
-    this.setState({ food: { ...food, [e.target.name]: parseInt(e.target.value) } });
+    const { food, orderFood } = this.state;
+    this.setState({
+      food: { ...food, [e.target.name]: parseInt(e.target.value) },
+      orderFood: { ...orderFood, [e.target.name]: e.target.value },
+    });
   };
 
   changeId = (e) => {
-    const { food } = this.state;
-    this.setState({ food: { ...food, id: food.id + 1 } });
+    const { food, orderFood } = this.state;
+    this.setState({ orderFood: { ...orderFood, id: food.id + 1 } });
   };
 
   refreshPage = () => {
@@ -45,29 +54,59 @@ class Component extends React.Component {
   };
 
   submitForm = async (e) => {
-    const { food } = this.state;
+    const { food, orderFood } = this.state;
     const { addFood } = this.props;
     e.preventDefault();
 
-    if (food.dishName === '' || !food.dishType || food.preparationTime === '00:00:00') {
+    if (food.dishName !== '' && food.dishType && food.preparationTime !== '00:00:00') {
       // await this.setState({ isError: true });
       // alert('Please fill all fields correctly');
       // tu jest git
-      console.log('wypełnij dishName, dishType lub preparationTime');
-      if (food.dishType === 'pizza' && food.noOfSlices !== 0) {
-        console.log('wypełnij dishtype');
+      if (food.dishType === 'pizza') {
+        if (!food.noOfSlices || !food.diameter) {
+          console.log('uzupełnij slices lub diameter');
+          await this.setState({ isError: true });
+          alert('Please fill all fields correctly');
+        }
+        else {
+          console.log('wyślij food do bazy');
+          await addFood(orderFood);
+          alert('Your food sent successfully!');
+          this.refreshPage();
+        }
         // await this.setState({ isError: true });
         // alert('Please fill all fields correctly');
       }
-      // await addFood(food);
-      // alert('Your food sent successfully!');
-      // this.refreshPage();
-
+      if (food.dishType === 'soup') {
+        console.log('wypełnij soup');
+        if (!food.spicinesScale) {
+          await this.setState({ isError: true });
+          alert('Please fill all fields correctly');
+        }
+        else {
+          console.log('wyślij food do bazy');
+          await addFood(orderFood);
+          alert('Your food sent successfully!');
+          this.refreshPage();
+        }
+      }
+      if (food.dishType === 'sandwich') {
+        if (!food.slicesOfBread) {
+          await this.setState({ isError: true });
+          alert('Please fill all fields correctly');
+        }
+        else {
+          console.log('wyślij food do bazy');
+          await addFood(orderFood);
+          alert('Your food sent successfully!');
+          this.refreshPage();
+        }
+      }
     }
     else {
-      console.log('wyślij food do bazy');
-      // await this.setState({ isError: true });
-      // alert('Please fill all fields correctly');
+      console.log('wypełnij dishName, dishType, preparationTime');
+      await this.setState({ isError: true });
+      alert('Please fill all fields correctly');
       // await addFood(food);
       // alert('Your food sent successfully!');
       // this.refreshPage();
@@ -108,7 +147,7 @@ class Component extends React.Component {
           {food.dishType === 'pizza' ?
             <fieldset>
               <div className="field-wrap">
-                <input name="noOfSlices" id="noOfSlices" placeholder="No of slices *" required type="number" min="0" max="12" value={food.numberOfSlices} onChange={updateNumberField} />
+                <input name="noOfSlices" id="noOfSlices" placeholder="No of slices *" required type="number" min="0" max="12" value={food.nomberOfSlices} onChange={updateNumberField} />
               </div>
               <div className="field-wrap">
                 {/* <label htmlFor="diameter">Diameter</label> */}
@@ -125,7 +164,8 @@ class Component extends React.Component {
             : ''
           }
           {food.dishType === 'sandwich' ?
-            <div className="field-wrap">
+            <div className="field-wrap rangeDiv">
+              <label htmlFor="slicesOfBread">Choose slices of bread</label>
               <input name="slicesOfBread" id="slicesOfBread" placeholder="Slices of bread *" required type="number" min="1" max="10" value={food.slicesOfBread} onChange={updateNumberField} />
             </div>
             : ''
