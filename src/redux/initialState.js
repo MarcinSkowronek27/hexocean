@@ -6,7 +6,4 @@ export const initialState = {
       error: false,
     },
   },
-  food: {
-    foodData: {},
-  },
 };

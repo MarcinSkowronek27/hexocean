@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../components/Form.scss';
 import { connect } from 'react-redux';
-import { getFoodData, addFoodInAPI, updateOrderFood, cleanOrderFood } from '../redux/foodRedux';
+import { getFoodData, addFoodInAPI } from '../redux/foodRedux';
 
 class Component extends React.Component {
 
@@ -14,11 +14,11 @@ class Component extends React.Component {
         id: 1,
         dishName: '',
         dishType: '',
-        noOfSlices: 1,
-        diameter: '',
+        // noOfSlices: 0,
         preparationTime: '00:00:00',
-        spicinesScale: 0,
-        slicesOfBread: 1,
+        diameter: '',
+        // spicinesScale: 0,
+        // slicesOfBread: 0,
       },
     };
   }
@@ -33,39 +33,15 @@ class Component extends React.Component {
     this.setState({ food: { ...food, [e.target.name]: parseInt(e.target.value) } });
   };
 
-  // handleChangeDishName = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ dishName: e.target.value });
-  // };
-
-  // handleChangeNoOfSlices = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ noOfSlices: parseInt(e.target.value) });
-  // };
-
-  // handleChangeDiameter = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ diameter: e.target.value });
-  // };
-
-  // handleChangePrepareTime = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ prepareTime: e.target.value });
-  // };
-
-  // handleChangeSpicinesScale = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ spicinesScale: parseInt(e.target.value) });
-  // };
-
-  // handleChangeSlicesOfBread = (e) => {
-  //   e.preventDefault();
-  //   this.setState({ slicesOfBread: parseInt(e.target.value) });
-  // };
-
   changeId = (e) => {
     const { food } = this.state;
-    this.setState({ food: { ...food, id: food.id + 1} });
+    this.setState({ food: { ...food, id: food.id + 1 } });
+  };
+
+  refreshPage = () => {
+    setTimeout(function () {
+      window.location.reload();
+    }, 400);
   };
 
   submitForm = async (e) => {
@@ -73,22 +49,11 @@ class Component extends React.Component {
     const { addFood } = this.props;
     e.preventDefault();
 
-    if (food.dishName && food.dishType) {
+    if (food.dishName && food.dishType && food.preparationTime !== '00:00:00') {
       await addFood(food);
       alert('Your food sent successfully!');
 
-      this.setState({
-        food: {
-          id: 1,
-          dishName: '',
-          dishType: '',
-          noOfSlices: 1,
-          diameter: '',
-          preparationTime: '00:00:00',
-          spicinesScale: 0,
-          slicesOfBread: 1,
-        },
-      });
+      this.refreshPage();
     } else {
       await this.setState({ isError: true });
       alert('Please fill all fields correctly');
@@ -99,7 +64,7 @@ class Component extends React.Component {
   render() {
     console.log(this.state);
     const { updateTextField, updateNumberField, submitForm, changeId } = this;
-    const { food } = this.state;
+    const { food} = this.state;
 
     return (
       <section className='formBox'>
@@ -129,9 +94,10 @@ class Component extends React.Component {
           {food.dishType === 'pizza' ?
             <fieldset>
               <div className="field-wrap">
-                <input name="noOfSlices" id="noOfSlices" placeholder="No of slices *" required type="number" min="1" max="12" value={food.numberOfSlices} onChange={updateNumberField} />
+                <input name="noOfSlices" id="noOfSlices" placeholder="No of slices *" required type="number" min="0" max="12" value={food.numberOfSlices} onChange={updateNumberField} />
               </div>
               <div className="field-wrap">
+                {/* <label htmlFor="diameter">Diameter</label> */}
                 <input name="diameter" id="diameter" placeholder="Diameter *" required type="number" min="16" max="46" step="1.5" value={food.diameter} onChange={updateTextField} />
               </div>
             </fieldset> : ''
@@ -139,7 +105,7 @@ class Component extends React.Component {
           {food.dishType === 'soup' ?
             <div className="field-wrap rangeDiv">
               <label htmlFor="spicines_scale">Choose level of spicy</label>
-              <input name="spicinesScale" id="spicinesScale" placeholder="Spicines scale *" required type="range" min="0" max="10" value={food.spicinesScale} onChange={updateNumberField} />
+              <input name="spicinesScale" id="spicinesScale" placeholder="Spicines scale *" required type="range" min="1" max="10" value={food.spicinesScale} onChange={updateNumberField} />
               <output>{food.spicinesScale}</output>
             </div>
             : ''
@@ -158,11 +124,9 @@ class Component extends React.Component {
 }
 
 Component.propTypes = {
-  foodData: PropTypes.object,
+  foodData: PropTypes.array,
   addFoodInAPI: PropTypes.func,
-  updateOrderFood: PropTypes.func,
   addFood: PropTypes.func,
-  cleanOrderFood: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -171,8 +135,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addFood: arg => dispatch(addFoodInAPI(arg)),
-  updateOrderFood: arg => dispatch(updateOrderFood(arg)),
-  cleanOrderFood: arg => dispatch(cleanOrderFood(arg)),
 });
 
 const FormContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
