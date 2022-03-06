@@ -49,14 +49,28 @@ class Component extends React.Component {
     const { addFood } = this.props;
     e.preventDefault();
 
-    if (food.dishName && food.dishType && food.preparationTime !== '00:00:00') {
-      await addFood(food);
-      alert('Your food sent successfully!');
+    if (food.dishName === '' || !food.dishType || food.preparationTime === '00:00:00') {
+      // await this.setState({ isError: true });
+      // alert('Please fill all fields correctly');
+      // tu jest git
+      console.log('wypełnij dishName, dishType lub preparationTime');
+      if (food.dishType === 'pizza' && food.noOfSlices !== 0) {
+        console.log('wypełnij dishtype');
+        // await this.setState({ isError: true });
+        // alert('Please fill all fields correctly');
+      }
+      // await addFood(food);
+      // alert('Your food sent successfully!');
+      // this.refreshPage();
 
-      this.refreshPage();
-    } else {
-      await this.setState({ isError: true });
-      alert('Please fill all fields correctly');
+    }
+    else {
+      console.log('wyślij food do bazy');
+      // await this.setState({ isError: true });
+      // alert('Please fill all fields correctly');
+      // await addFood(food);
+      // alert('Your food sent successfully!');
+      // this.refreshPage();
     }
   };
 
@@ -64,7 +78,7 @@ class Component extends React.Component {
   render() {
     console.log(this.state);
     const { updateTextField, updateNumberField, submitForm, changeId } = this;
-    const { food} = this.state;
+    const { food } = this.state;
 
     return (
       <section className='formBox'>

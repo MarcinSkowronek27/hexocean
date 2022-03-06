@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 
 const foodsSchema = new mongoose.Schema({
+  id: { type: Number},
   dishName: { type: String, required: true },
   dishType: { type: String, required: true },
   preparationTime: { type: String, required: true },

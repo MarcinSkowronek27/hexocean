@@ -17,7 +17,7 @@ router.get('/foods', async (req, res) => {
 router.post('/foods', async (req, res) => {
   console.log(req.body);
   try {
-    const { dishName,
+    const { id, dishName,
       dishType,
       preparationTime,
       diameter,
@@ -26,6 +26,7 @@ router.post('/foods', async (req, res) => {
       slicesOfBread,
     } = req.body;
     const newFood = new Food({
+      id,
       dishName,
       dishType,
       preparationTime,
