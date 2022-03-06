@@ -11,7 +11,6 @@ class Component extends React.Component {
 
     this.state = {
       food: {
-        id: 1,
         dishName: '',
         dishType: '',
         noOfSlices: 0,
@@ -21,7 +20,6 @@ class Component extends React.Component {
         slicesOfBread: 0,
       },
       orderFood: {
-
       },
     };
   }
@@ -42,11 +40,6 @@ class Component extends React.Component {
     });
   };
 
-  changeId = (e) => {
-    const { food, orderFood } = this.state;
-    this.setState({ orderFood: { ...orderFood, id: food.id + 1 } });
-  };
-
   refreshPage = () => {
     setTimeout(function () {
       window.location.reload();
@@ -59,32 +52,23 @@ class Component extends React.Component {
     e.preventDefault();
 
     if (food.dishName !== '' && food.dishType && food.preparationTime !== '00:00:00') {
-      // await this.setState({ isError: true });
-      // alert('Please fill all fields correctly');
-      // tu jest git
       if (food.dishType === 'pizza') {
         if (!food.noOfSlices || !food.diameter) {
-          console.log('uzupełnij slices lub diameter');
           await this.setState({ isError: true });
           alert('Please fill all fields correctly');
         }
         else {
-          console.log('wyślij food do bazy');
           await addFood(orderFood);
           alert('Your food sent successfully!');
           this.refreshPage();
         }
-        // await this.setState({ isError: true });
-        // alert('Please fill all fields correctly');
       }
       if (food.dishType === 'soup') {
-        console.log('wypełnij soup');
         if (!food.spicinesScale) {
           await this.setState({ isError: true });
           alert('Please fill all fields correctly');
         }
         else {
-          console.log('wyślij food do bazy');
           await addFood(orderFood);
           alert('Your food sent successfully!');
           this.refreshPage();
@@ -96,7 +80,6 @@ class Component extends React.Component {
           alert('Please fill all fields correctly');
         }
         else {
-          console.log('wyślij food do bazy');
           await addFood(orderFood);
           alert('Your food sent successfully!');
           this.refreshPage();
@@ -104,19 +87,14 @@ class Component extends React.Component {
       }
     }
     else {
-      console.log('wypełnij dishName, dishType, preparationTime');
       await this.setState({ isError: true });
       alert('Please fill all fields correctly');
-      // await addFood(food);
-      // alert('Your food sent successfully!');
-      // this.refreshPage();
     }
   };
 
-
   render() {
     console.log(this.state);
-    const { updateTextField, updateNumberField, submitForm, changeId } = this;
+    const { updateTextField, updateNumberField, submitForm } = this;
     const { food } = this.state;
 
     return (
@@ -150,7 +128,6 @@ class Component extends React.Component {
                 <input name="noOfSlices" id="noOfSlices" placeholder="No of slices *" required type="number" min="0" max="12" value={food.nomberOfSlices} onChange={updateNumberField} />
               </div>
               <div className="field-wrap">
-                {/* <label htmlFor="diameter">Diameter</label> */}
                 <input name="diameter" id="diameter" placeholder="Diameter *" required type="number" min="16" max="46" step="1.5" value={food.diameter} onChange={updateTextField} />
               </div>
             </fieldset> : ''
@@ -170,7 +147,7 @@ class Component extends React.Component {
             </div>
             : ''
           }
-          <button onClick={changeId} className="button button-block" type="submit">Send</button>
+          <button className="button button-block" type="submit">Send</button>
         </form>
       </section >
     );
